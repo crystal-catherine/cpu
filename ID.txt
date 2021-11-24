@@ -147,15 +147,7 @@ module ID(
     assign sel = inst[2:0];
 
     wire inst_ori, inst_lui, inst_addiu, inst_beq, inst_subu,
-<<<<<<< HEAD
-<<<<<<< HEAD
-         inst_jal, inst_jr, inst_addu;
-=======
          inst_jal, inst_jr, inst_addu, inst_or, inst_sll;
->>>>>>> e1cf435a961da8866215c5227bf21320258274bb
-=======
-         inst_jal, inst_jr, inst_addu, inst_or, inst_sll;
->>>>>>> e1cf435a961da8866215c5227bf21320258274bb
 
     wire op_add, op_sub, op_slt, op_sltu;
     wire op_and, op_nor, op_or, op_xor;
@@ -195,31 +187,14 @@ module ID(
     assign inst_jal     = op_d[6'b00_0011];
     assign inst_jr      = op_d[6'b00_0000] && sa_d[5'b00_000] && func_d[6'b00_1000];
     assign inst_addu    = op_d[6'b00_0000] && sa_d[5'b00_000] && func_d[6'b10_0001];
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     assign inst_or      = op_d[6'b00_0000] && sa_d[5'b00_000] && func_d[6'b10_0101];
     assign inst_lw      = op_d[6'b10_0011];
     assign inst_sll     = op_d[6'b00_0000] && func_d[6'b00_0000];
->>>>>>> e1cf435a961da8866215c5227bf21320258274bb
-=======
-    assign inst_or      = op_d[6'b00_0000] && sa_d[5'b00_000] && func_d[6'b10_0101];
-    assign inst_lw      = op_d[6'b10_0011];
-    assign inst_sll     = op_d[6'b00_0000] && func_d[6'b00_0000];
->>>>>>> e1cf435a961da8866215c5227bf21320258274bb
     
     
     
     // rs to reg1
-<<<<<<< HEAD
-<<<<<<< HEAD
-    assign sel_alu_src1[0] = inst_ori | inst_addiu | inst_subu | inst_addu;
-=======
     assign sel_alu_src1[0] = inst_ori | inst_addiu | inst_subu | inst_addu | inst_or;
->>>>>>> e1cf435a961da8866215c5227bf21320258274bb
-=======
-    assign sel_alu_src1[0] = inst_ori | inst_addiu | inst_subu | inst_addu | inst_or;
->>>>>>> e1cf435a961da8866215c5227bf21320258274bb
 
     // pc to reg1
     assign sel_alu_src1[1] = inst_jal;
@@ -229,15 +204,7 @@ module ID(
 
     
     // rt to reg2
-<<<<<<< HEAD
-<<<<<<< HEAD
-    assign sel_alu_src2[0] = inst_subu | inst_addu;
-=======
     assign sel_alu_src2[0] = inst_subu | inst_addu | inst_or | inst_sll;
->>>>>>> e1cf435a961da8866215c5227bf21320258274bb
-=======
-    assign sel_alu_src2[0] = inst_subu | inst_addu | inst_or | inst_sll;
->>>>>>> e1cf435a961da8866215c5227bf21320258274bb
     
     // imm_sign_extend to reg2
     assign sel_alu_src2[1] = inst_lui | inst_addiu;
@@ -278,30 +245,13 @@ module ID(
 
 
     // regfile sotre enable
-<<<<<<< HEAD
-<<<<<<< HEAD
-    assign rf_we = inst_ori | inst_lui | inst_addiu | inst_subu | inst_jal | inst_addu;
-=======
     assign rf_we = inst_ori | inst_lui | inst_addiu | inst_subu | inst_jal | inst_addu | 
                    inst_or | inst_sll;
->>>>>>> e1cf435a961da8866215c5227bf21320258274bb
-=======
-    assign rf_we = inst_ori | inst_lui | inst_addiu | inst_subu | inst_jal | inst_addu | 
-                   inst_or | inst_sll;
->>>>>>> e1cf435a961da8866215c5227bf21320258274bb
 
 
 
     // store in [rd]
-<<<<<<< HEAD
-<<<<<<< HEAD
-    assign sel_rf_dst[0] = inst_subu | inst_addu;
-=======
     assign sel_rf_dst[0] = inst_subu | inst_addu | inst_or | inst_sll;
->>>>>>> e1cf435a961da8866215c5227bf21320258274bb
-=======
-    assign sel_rf_dst[0] = inst_subu | inst_addu | inst_or | inst_sll;
->>>>>>> e1cf435a961da8866215c5227bf21320258274bb
     // store in [rt] 
     assign sel_rf_dst[1] = inst_ori | inst_lui | inst_addiu;
     // store in [31]
